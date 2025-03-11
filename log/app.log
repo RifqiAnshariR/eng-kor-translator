@@ -1,0 +1,68 @@
+2025-03-11 00:47:51,957 - root - INFO - Loading model: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct
+2025-03-11 00:47:51,962 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-03-11 00:47:52,799 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/config.json HTTP/1.1" 200 0
+2025-03-11 00:47:53,577 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/configuration_exaone.py HTTP/1.1" 200 0
+2025-03-11 00:47:54,064 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/modeling_exaone.py HTTP/1.1" 200 0
+2025-03-11 00:47:55,855 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/generation_config.json HTTP/1.1" 200 0
+2025-03-11 00:47:56,139 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-03-11 00:47:56,535 - root - INFO - Model LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct and tokenizer loaded successfully.
+2025-03-11 02:40:26,141 - root - INFO - Loading model: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct
+2025-03-11 02:40:26,147 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-03-11 02:40:27,001 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/config.json HTTP/1.1" 200 0
+2025-03-11 02:40:27,845 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/configuration_exaone.py HTTP/1.1" 200 0
+2025-03-11 02:40:28,304 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/modeling_exaone.py HTTP/1.1" 200 0
+2025-03-11 02:40:29,494 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/generation_config.json HTTP/1.1" 200 0
+2025-03-11 02:40:30,204 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-03-11 02:40:30,642 - root - INFO - Model LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct and tokenizer loaded successfully.
+2025-03-12 01:28:22,162 - root - INFO - Loading model: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct
+2025-03-12 01:28:22,177 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-03-12 01:28:23,185 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/config.json HTTP/1.1" 200 0
+2025-03-12 01:28:23,483 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/configuration_exaone.py HTTP/1.1" 200 0
+2025-03-12 01:28:24,449 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/modeling_exaone.py HTTP/1.1" 200 0
+2025-03-12 01:28:25,480 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/generation_config.json HTTP/1.1" 200 0
+2025-03-12 01:28:25,746 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-03-12 01:28:26,109 - root - INFO - Model LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct and tokenizer loaded successfully.
+2025-03-12 01:37:19,353 - root - INFO - Loading model: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct
+2025-03-12 01:37:19,358 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-03-12 01:37:20,375 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/config.json HTTP/1.1" 200 0
+2025-03-12 01:37:21,110 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/configuration_exaone.py HTTP/1.1" 200 0
+2025-03-12 01:37:22,028 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/modeling_exaone.py HTTP/1.1" 200 0
+2025-03-12 01:37:24,132 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/generation_config.json HTTP/1.1" 200 0
+2025-03-12 01:37:24,421 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-03-12 01:37:24,825 - root - INFO - Model LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct and tokenizer loaded successfully.
+2025-03-12 01:37:24,825 - root - INFO - Processing prompt: to-en스스로를 자랑해 봐
+2025-03-12 01:38:41,743 - root - INFO - Generated output: [|system|]You are EXAONE model from LG AI Research. You are a professional Korean to English translator. Translate the following Korean text to natural, fluent English. Maintain the original meaning and nuance.
+[|user|]스스로를 자랑해 봐
+[|assistant|]Let me take pride in myself.
+2025-03-12 01:47:33,680 - root - INFO - Loading model: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct
+2025-03-12 01:47:33,685 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-03-12 01:47:34,585 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/config.json HTTP/1.1" 200 0
+2025-03-12 01:47:35,338 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/configuration_exaone.py HTTP/1.1" 200 0
+2025-03-12 01:47:36,242 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/modeling_exaone.py HTTP/1.1" 200 0
+2025-03-12 01:47:37,064 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/generation_config.json HTTP/1.1" 200 0
+2025-03-12 01:47:37,337 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-03-12 01:47:37,725 - root - INFO - Model LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct and tokenizer loaded successfully.
+2025-03-12 01:47:37,725 - root - INFO - Processing prompt: to-en스스로를 자랑해 봐
+2025-03-12 01:50:41,522 - root - INFO - Generated output: Show off yourself a bit!
+2025-03-12 02:00:59,580 - root - INFO - Loading model: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct
+2025-03-12 02:00:59,585 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-03-12 02:01:00,579 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/config.json HTTP/1.1" 200 0
+2025-03-12 02:01:00,860 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/configuration_exaone.py HTTP/1.1" 200 0
+2025-03-12 02:01:01,761 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/modeling_exaone.py HTTP/1.1" 200 0
+2025-03-12 02:01:02,525 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/generation_config.json HTTP/1.1" 200 0
+2025-03-12 02:01:02,807 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-03-12 02:01:03,279 - root - INFO - Model LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct and tokenizer loaded successfully.
+2025-03-12 02:01:03,280 - root - INFO - Processing prompt: to-kor스스로를 자랑해 봐
+2025-03-12 02:02:27,798 - root - INFO - Generated output: 자신을 드러내어 자랑스레 말씀해 보세요. 
+
+(자연스럽고 fluent한 한국어로 번역된 버전입니다.)
+2025-03-12 02:14:59,152 - root - INFO - Loading model: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct
+2025-03-12 02:14:59,157 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-03-12 02:14:59,557 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/config.json HTTP/1.1" 200 0
+2025-03-12 02:15:00,381 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/configuration_exaone.py HTTP/1.1" 200 0
+2025-03-12 02:15:01,284 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/modeling_exaone.py HTTP/1.1" 200 0
+2025-03-12 02:15:02,199 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/generation_config.json HTTP/1.1" 200 0
+2025-03-12 02:15:02,943 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 200 0
+2025-03-12 02:15:03,309 - root - INFO - Model LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct and tokenizer loaded successfully.
+2025-03-12 02:15:03,309 - root - INFO - Processing prompt: to-korHello, how are you?
+2025-03-12 02:16:24,732 - root - INFO - Generated output: 안녕하세요, 잘 지내세요?
