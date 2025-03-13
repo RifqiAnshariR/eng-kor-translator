@@ -1,16 +1,28 @@
-from PyQt5.QtWidgets import (
-    QApplication, QWidget, QTextEdit, QPushButton, QVBoxLayout, QHBoxLayout,
-    QMenuBar, QMenu, QAction, QMessageBox, QProgressBar, QLabel, QSizePolicy
-)
-from PyQt5.QtCore import Qt
 import sys
-from main import main
+import os
 import re
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (
+    QApplication, QWidget, QDialog, QTextEdit, QPushButton, QVBoxLayout, 
+    QHBoxLayout, QMenuBar, QMenu, QAction, QMessageBox, QProgressBar, QLabel, 
+    QSizePolicy
+)
+
+from main import ModelHandler
+from config import (
+    MODEL_NAME, HEADER_FONTSTYLE, LABEL_1_FONTSTYLE, LABEL_2_FONTSTYLE, 
+    KOR_ENG_BUTTONSTYLE, ENG_KOR_BUTTONSTYLE, GRAMMAR_BUTTONSTYLE, LOG_DIR, LOG_NAME
+)
 
 class TranslatorApp(QWidget):
     def __init__(self):
         super().__init__()
         self.init_ui()
+        self.runModel(MODEL_NAME)
+    
+    def runModel(self, model_name):
+        self.model = ModelHandler(model_name)
     
     def init_ui(self):
         # Main Layout
@@ -18,33 +30,33 @@ class TranslatorApp(QWidget):
 
         # Menu Bar
         self.menu_bar = QMenuBar(self)
-        file_menu = self.menu_bar.addMenu("File")
+        options_menu = self.menu_bar.addMenu("Options")
         edit_menu = self.menu_bar.addMenu("Edit")
         about_menu = self.menu_bar.addMenu("About")
         main_layout.addWidget(self.menu_bar)
         
-        self.setup_menu_actions(file_menu, edit_menu, about_menu)
+        self.setup_menu_actions(options_menu, edit_menu, about_menu)
         
         # Translator Section
         self.translator_header = QLabel("TRANSLATOR")
-        self.translator_header.setStyleSheet("font-size: 16px; font-weight: bold; color: #333; font-family: Arial;")
+        self.translator_header.setStyleSheet(HEADER_FONTSTYLE)
         main_layout.addWidget(self.translator_header)
         
         translator_layout = QHBoxLayout()
 
         # Input Area
-        self.input_field = QTextEdit(self)
-        self.input_field.setPlaceholderText("Input Text...")
-        translator_layout.addWidget(self.input_field)
+        self.translator_input = QTextEdit(self)
+        self.translator_input.setPlaceholderText("Input Text...")
+        translator_layout.addWidget(self.translator_input)
 
         # Button Layout
         button_layout = QVBoxLayout()
         self.kor_to_eng_btn = QPushButton("한국어 → English", self)
-        self.kor_to_eng_btn.setStyleSheet("background-color: green; color: white; font-size: 15px;")
+        self.kor_to_eng_btn.setStyleSheet(KOR_ENG_BUTTONSTYLE)
         self.kor_to_eng_btn.clicked.connect(self.translate_korean_to_english)
         
         self.eng_to_kor_btn = QPushButton("English → 한국어", self)
-        self.eng_to_kor_btn.setStyleSheet("background-color: blue; color: white; font-size: 15px;")
+        self.eng_to_kor_btn.setStyleSheet(ENG_KOR_BUTTONSTYLE)
         self.eng_to_kor_btn.clicked.connect(self.translate_english_to_korean)
 
         button_layout.addWidget(self.kor_to_eng_btn)
@@ -53,15 +65,15 @@ class TranslatorApp(QWidget):
         translator_layout.addLayout(button_layout)
         
         # Output Area
-        self.output_field = QTextEdit(self)
-        self.output_field.setPlaceholderText("Output Text...")
-        translator_layout.addWidget(self.output_field)
+        self.translator_output = QTextEdit(self)
+        self.translator_output.setPlaceholderText("Output Text...")
+        translator_layout.addWidget(self.translator_output)
         
         main_layout.addLayout(translator_layout)
 
         # Grammar Checker Section
         self.grammar_header = QLabel("GRAMMAR CHECKER")
-        self.grammar_header.setStyleSheet("font-size: 16px; font-weight: bold; color: #333; font-family: Arial;")
+        self.grammar_header.setStyleSheet(HEADER_FONTSTYLE)
         main_layout.addWidget(self.grammar_header)
 
         grammar_layout = QHBoxLayout()
@@ -79,33 +91,36 @@ class TranslatorApp(QWidget):
         feedback_layout.setAlignment(Qt.AlignTop)
 
         feedback_label = QLabel("Feedback:")
-        feedback_label.setStyleSheet("font-size: 15px; font-weight: bold; color: #333; font-family: Arial;")
+        feedback_label.setStyleSheet(LABEL_1_FONTSTYLE)
 
-        self.grammar_feedback = QLabel("Some feedback...")
-        self.grammar_feedback.setWordWrap(True)
-        self.grammar_feedback.setStyleSheet("font-size: 15px; color: #333; font-family: Arial;")
-        self.grammar_feedback.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.grammar_output = QLabel("Some feedback...")
+        self.grammar_output.setWordWrap(True)
+        self.grammar_output.setStyleSheet(LABEL_2_FONTSTYLE)
+        self.grammar_output.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
         feedback_layout.addWidget(feedback_label)
-        feedback_layout.addWidget(self.grammar_feedback)
+        feedback_layout.addWidget(self.grammar_output)
 
         grammar_layout.addLayout(feedback_layout)
 
         main_layout.addLayout(grammar_layout)
 
         # Rating Section
-        self.rating_label = QLabel("Rate: 0, UNDEFINED")
+        self.rating_label = QLabel("Rate: --, UNDEFINED")
         self.rating_label.setAlignment(Qt.AlignCenter)
-        self.rating_label.setStyleSheet("font-size: 12px; font-weight: bold; color: #333; font-family: Arial;")
+        self.rating_label.setStyleSheet(LABEL_1_FONTSTYLE)
         main_layout.addWidget(self.rating_label)
 
         self.rating_bar = QProgressBar(self)
         self.rating_bar.setMinimum(0)
         self.rating_bar.setMaximum(10)
+        self.rating_bar.setTextVisible(False)
+        self.rating_bar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         main_layout.addWidget(self.rating_bar)
 
         # Check Button
         self.grammar_check_btn = QPushButton("Check Grammar")
+        self.grammar_check_btn.setStyleSheet(GRAMMAR_BUTTONSTYLE)
         self.grammar_check_btn.clicked.connect(self.check_grammar)
         main_layout.addWidget(self.grammar_check_btn)
 
@@ -115,27 +130,27 @@ class TranslatorApp(QWidget):
     
     # Translation Methods
     def translate_korean_to_english(self):
-        text = self.input_field.toPlainText()
+        text = self.translator_input.toPlainText()
         if text:
-            result = main(f"t-to-en {text}")
-            self.output_field.setPlainText(result)
+            result = self.model.generate_response(f"t-to-en {text}")
+            self.translator_output.setPlainText(result)
     
     def translate_english_to_korean(self):
-        text = self.input_field.toPlainText()
+        text = self.translator_input.toPlainText()
         if text:
-            result = main(f"t-to-ko {text}")
-            self.output_field.setPlainText(result)
+            result = self.model.generate_response(f"t-to-ko {text}")
+            self.translator_output.setPlainText(result)
     
     # Grammar Check Methods
     def update_rating_label(self, value):
         if value > 6:
-            self.rating_label.setText(f"Rate: {value}, EXCELLENT")
+            self.rating_label.setText(f"Rate: {value}/10, EXCELLENT")
             self.rating_bar.setStyleSheet("QProgressBar::chunk { background-color: green; }")
         elif value > 4:
-            self.rating_label.setText(f"Rate: {value}, GOOD")
+            self.rating_label.setText(f"Rate: {value}/10, GOOD")
             self.rating_bar.setStyleSheet("QProgressBar::chunk { background-color: blue; }")
         else:
-            self.rating_label.setText(f"Rate: {value}, BAD")
+            self.rating_label.setText(f"Rate: {value}/10, BAD")
             self.rating_bar.setStyleSheet("QProgressBar::chunk { background-color: red; }")
     
     def update_rating_bar(self, value):
@@ -152,43 +167,58 @@ class TranslatorApp(QWidget):
         self.rating_bar.setValue(0)
         text = self.grammar_input.toPlainText()
         if text:
-            result = main(f"g-check {text}")
+            result = self.model.generate_response(f"g-check {text}")
 
             rating_match = re.search(r"\b(\d{1,2})(?:/10)?\b", result)
             feedback_match = re.search(r"Feedback:\s*(.*)", result, re.DOTALL)
-
-            rating = rating_match.group(1) if rating_match else "1"
+            rating = rating_match.group(1) if rating_match else "0"
             feedback = feedback_match.group(1) if feedback_match else "Something went wrong! Please try submitting it again"
 
             self.update_rating_bar(rating)
-            self.grammar_feedback.setText(feedback)
+            self.grammar_output.setText(feedback)
 
     # Menu Methods
-    def setup_menu_actions(self, file_menu, edit_menu, about_menu):
-        file_menu.addAction(QAction("Open", self, triggered=self.open_file))
-        file_menu.addAction(QAction("Save", self, triggered=self.save_file))
-        file_menu.addAction(QAction("Exit", self, triggered=self.close))
+    def setup_menu_actions(self, options_menu, edit_menu, about_menu):
+        options_menu.addAction(QAction("View Logs", self, triggered=self.view_logs))
+        options_menu.addAction(QAction("Exit", self, triggered=self.close))
         
         edit_menu.addAction(QAction("Clear Translator", self, triggered=self.clear_translator))
         edit_menu.addAction(QAction("Clear Grammar Checker", self, triggered=self.clear_grammar))
         
         about_menu.addAction(QAction("About", self, triggered=self.show_about))
     
-    def open_file(self):
-        QMessageBox.information(self, "Open File", "Fungsi open file belum diimplementasikan.")
-    
-    def save_file(self):
-        QMessageBox.information(self, "Save File", "Fungsi save file belum diimplementasikan.")
+    def view_logs(self):
+        log_dialog = QDialog(self)
+        log_dialog.setWindowTitle("Process Logs")
+        log_dialog.resize(600, 400)
+        log_dialog.setWindowFlags(log_dialog.windowFlags() & ~Qt.WindowContextHelpButtonHint)
+        
+        layout = QVBoxLayout()
+
+        log_viewer = QTextEdit()
+        log_viewer.setReadOnly(True)
+
+        log_path = os.path.join(LOG_DIR, LOG_NAME)
+        try:
+            with open(log_path, "r", encoding="utf-8") as log_file:
+                log_viewer.setPlainText(log_file.read())
+        except Exception as e:
+            log_viewer.setPlainText(f"Error loading logs: {e}")
+
+        layout.addWidget(log_viewer)
+
+        log_dialog.setLayout(layout)
+        log_dialog.exec_()
     
     def clear_translator(self):
-        self.input_field.clear()
+        self.translator_input.clear()
     
     def clear_grammar(self):
         self.grammar_input.clear()
     
     def show_about(self):
-        QMessageBox.information(self, "About", "Korean-English Translator and Grammar Checker v1.0\nMade by PyQt5")
-
+        QMessageBox.information(self, "About", 
+                                "Korean-English Translator and Grammar Checker v1.0\nModel: LGAI EXAONE 2.4B Params\nMade by PyQt5")
     
 if __name__ == '__main__':
     app = QApplication(sys.argv)
