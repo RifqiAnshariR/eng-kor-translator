@@ -1,5 +1,5 @@
 # 📌 Description  
-**Web Portofolio - Terminal Style**  
+**English-Korean Translator & Grammar Checker**  
 This is a simple translation and grammar-checking application designed with a **minimalist UI**. The app allows users to translate text between English and Korean while providing grammar correction and rating feedback based on translation quality.
 
 # 🚀 How to Run  
@@ -19,6 +19,9 @@ This is a simple translation and grammar-checking application designed with a **
 # ➕ Miscellaneous
 1. Supports translation and grammar correction.
 2. Provides rating feedback with visual indicators.
+
+# 📷 Interfaces
+![Home Page](./img/App%20UI.png)
 
 ---  
 Made with ❤️!
