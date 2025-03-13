@@ -1,6 +1,6 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from config import MODEL_NAME
+
 from logger import get_logger
 
 class ModelHandler:
@@ -11,7 +11,7 @@ class ModelHandler:
         self.tokenizer = None
         self.load_model()   # Load model immediately
 
-    # Load model and tokenizer
+    # Load Model and Tokenizer
     def load_model(self):
         self.logger.info(f"Loading model: {self.model_name}")
         try:
@@ -27,31 +27,39 @@ class ModelHandler:
             self.logger.error(f"Error loading model or tokenizer: {e}")
             raise
     
-    # Generate response
+    # Generate Response
     def generate_response(self, prompt):
+        self.logger.info("=" * 68)
         self.logger.info(f"Processing prompt: {prompt}")
-        
-        # Determine translation pipeline
-        if "t-to-ko" in prompt:
-            system_content = (
-                "You are EXAONE model from LG AI Research."
-                "A professional English to Korean translator."
-            )
-            prompt = prompt.replace("to-ko", "Translate this following text to natural, fluent Korean:", 1).strip()
-        elif "t-to-en" in prompt:
-            system_content = (
-                "You are EXAONE model from LG AI Research."
-                "A professional Korean to English translator."
-            )
-            prompt = prompt.replace("to-en", "Translate this following text to natural, fluent English:", 1).strip()
-        elif "g-check" in prompt:
-            system_content = (
-                "You are EXAONE model from LG AI Research, "
-                "a professional Korean and English grammar checker."
-            )
-            prompt = prompt.replace("g-check", 
-                                    "Provide a grammar quality rating (1-10). Respond in strict format: rating, feedback", 1).strip()
 
+        # Determine translation pipeline
+        task_config = {
+            "t-to-ko": {
+                "system_content": "You are EXAONE model from LG AI Research. A professional English to Korean translator.",
+                "new_tokens": 128,
+                "command": "Translate this following text to natural, fluent Korean:"
+            },
+            "t-to-en": {
+                "system_content": "You are EXAONE model from LG AI Research. A professional Korean to English translator.",
+                "new_tokens": 128,
+                "command": "Translate this following text to natural, fluent English:"
+            },
+            "g-check": {
+                "system_content": "You are EXAONE model from LG AI Research, a professional Korean and English grammar checker.",
+                "new_tokens": 256,
+                "command": "Provide a grammar quality rating (1-10). Respond in strict format: rating, feedback"
+            }
+        }
+
+        task_name = next((key for key in task_config if key in prompt), None)
+        if task_name:
+            task = task_config[task_name]
+            system_content = task["system_content"]
+            new_tokens = task["new_tokens"]
+            prompt = prompt.replace(task_name, task["command"], 1).strip()
+        else:
+            self.logger.error(f"Unknown task in prompt: {prompt}")
+        
         messages = [
             {"role": "system", "content": system_content},
             {"role": "user", "content": prompt}
@@ -72,14 +80,13 @@ class ModelHandler:
             output = self.model.generate(
                 input_ids = input_ids.to(self.model.device),
                 eos_token_id=self.tokenizer.eos_token_id,
-                max_new_tokens=256,
+                max_new_tokens=new_tokens,
                 do_sample=True,
                 top_p=0.95,
                 temperature=0.7,
                 repetition_penalty=1.2,
             )
             
-            # Potong input dan ambil hanya respons baru
             input_length = input_ids.shape[1]
             generated_ids = output[:, input_length:]
             result = self.tokenizer.decode(generated_ids[0], skip_special_tokens=True)
@@ -90,14 +97,3 @@ class ModelHandler:
         except Exception as e:
             self.logger.error(f"Error during model inference: {e}")
             raise
-
-def main(prompt):
-    handler = ModelHandler(MODEL_NAME)
-    # prompt = "to-en스스로를 자랑해 봐"
-    # prompt = "g-check I has a pencils"
-    # response = handler.generate_response(prompt)
-    # print(response)
-    return handler.generate_response(prompt)
-
-if __name__ == '__main__':
-    main()
