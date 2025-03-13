@@ -1,8 +1,7 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from model_config import MODEL_NAME
+from config import MODEL_NAME
 from logger import get_logger
-from interface import 
 
 class ModelHandler:
     def __init__(self, model_name):
@@ -20,7 +19,7 @@ class ModelHandler:
                 self.model_name,
                 torch_dtype=torch.float32,
                 trust_remote_code=True,
-                device_map="cpu"
+                device_map="auto"
             )
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_name, trust_remote_code=True)
             self.logger.info(f"Model {self.model_name} and tokenizer loaded successfully.")
@@ -32,35 +31,34 @@ class ModelHandler:
     def generate_response(self, prompt):
         self.logger.info(f"Processing prompt: {prompt}")
         
-        # Determine translation direction and create appropriate system message
-        if "to-ko" in prompt:
+        # Determine translation pipeline
+        if "t-to-ko" in prompt:
             system_content = (
-                "You are EXAONE model from LG AI Research. "
-                "You are a professional English to Korean translator. "
-                "Translate the following English text to natural, fluent Korean. "
-                "Maintain the original meaning and nuance."
+                "You are EXAONE model from LG AI Research."
+                "A professional English to Korean translator."
             )
-            prompt = prompt.replace("to-ko", "", 1).strip()
-        elif "to-en" in prompt:
+            prompt = prompt.replace("to-ko", "Translate this following text to natural, fluent Korean:", 1).strip()
+        elif "t-to-en" in prompt:
             system_content = (
-                "You are EXAONE model from LG AI Research. "
-                "You are a professional Korean to English translator. "
-                "Translate the following Korean text to natural, fluent English. "
-                "Maintain the original meaning and nuance."
+                "You are EXAONE model from LG AI Research."
+                "A professional Korean to English translator."
             )
-            prompt = prompt.replace("to-en", "", 1).strip()
-        else:
+            prompt = prompt.replace("to-en", "Translate this following text to natural, fluent English:", 1).strip()
+        elif "g-check" in prompt:
             system_content = (
-                "You are EXAONE model from LG AI Research. "
-                "Translate the following text appropriately while maintaining "
-                "the original meaning and nuance."
+                "You are EXAONE model from LG AI Research, "
+                "a professional Korean and English grammar checker."
             )
-        
+            prompt = prompt.replace("g-check", 
+                                    "Provide a grammar quality rating (1-10). Respond in strict format: rating, feedback", 1).strip()
+
         messages = [
             {"role": "system", "content": system_content},
             {"role": "user", "content": prompt}
         ]
 
+        self.logger.info(f"Processing messages: {messages}")
+        
         try:
             input_ids = self.tokenizer.apply_chat_template(
                 messages,
@@ -69,13 +67,18 @@ class ModelHandler:
                 return_tensors="pt"
             )
 
-            output = self.model.generate(
-                input_ids.to("cpu"),
-                eos_token_id=self.tokenizer.eos_token_id,
-                max_new_tokens=128,
-                do_sample=True,
-            )
+            self.logger.info(f"Model ran on: {self.model.device}")
 
+            output = self.model.generate(
+                input_ids = input_ids.to(self.model.device),
+                eos_token_id=self.tokenizer.eos_token_id,
+                max_new_tokens=256,
+                do_sample=True,
+                top_p=0.95,
+                temperature=0.7,
+                repetition_penalty=1.2,
+            )
+            
             # Potong input dan ambil hanya respons baru
             input_length = input_ids.shape[1]
             generated_ids = output[:, input_length:]
@@ -88,12 +91,13 @@ class ModelHandler:
             self.logger.error(f"Error during model inference: {e}")
             raise
 
-def main():
+def main(prompt):
     handler = ModelHandler(MODEL_NAME)
     # prompt = "to-en스스로를 자랑해 봐"
-    prompt = "to-korHello, how are you?"
-    response = handler.generate_response(prompt)
-    print(response)
+    # prompt = "g-check I has a pencils"
+    # response = handler.generate_response(prompt)
+    # print(response)
+    return handler.generate_response(prompt)
 
 if __name__ == '__main__':
     main()
